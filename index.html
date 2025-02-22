@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XEScripts.gg</title>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@1.37.5/dist/tsparticles.min.js"></script> <!-- Подключение tsParticles -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #f5f5f5;
+            overflow-x: hidden;
+            position: relative;
+            cursor: url('src/pointer.png'), auto;
+            height: 100vh;
+            margin: 0;
+            background-image: url('src/background.png'); /* Добавление фона */
+            background-size: cover; /* Размер фона */
+            background-position: center;
+        }
+
+        /* Задний фон с изображением и затемнением */
+        #particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Частицы и контент будут поверх фона */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            z-index: 1;
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #9b4b97;
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+            animation: float 3s ease-in-out infinite alternate, colorShift 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(-5px);
+            }
+            100% {
+                transform: translateY(5px);
+            }
+        }
+
+        @keyframes colorShift {
+            0% {
+                color: #9b4b97;
+            }
+            25% {
+                color: #ba4b97;
+            }
+            50% {
+                color: #9333ea;
+            }
+            75% {
+                color: #6a2c92;
+            }
+            100% {
+                color: #9b4b97;
+            }
+        }
+
+        .status {
+            font-size: 1.6rem;
+            background-color: rgba(131, 11, 201, 0.39); /* Вернули голубой фон */
+            padding: 20px 40px;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 0 25px rgba(106, 44, 146, 0.8); /* Тень сделана фиолетовой (#6a2c92) */
+            text-align: center;
+            font-weight: 600;
+            color: #e0e0e0c7; /* Цвет текста изменен на белый */
+            animation: pulse 2s ease-in-out infinite alternate;
+            border: 2px solid rgba(131, 11, 201, 0.39); /* Добавлена фиолетовая обводка */
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.05);
+            }
+        }
+
+        .changelog {
+            background: rgba(0, 0, 0, 0.6); /* Сделали фон темнее */
+            border-radius: 20px;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            margin-bottom: 50px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 2s forwards 0.5s;
+        }
+
+        .changelog h2 {
+            margin-bottom: 15px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .changelog ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .changelog ul li {
+            margin: 10px 0;
+            font-size: 1.3rem;
+            color: #ddd;
+            transition: color 0.3s ease;
+        }
+
+        .changelog ul li:hover {
+            color: rgb(162, 0, 255);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .button {
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: 12px;
+            cursor: url('src/pointer.png'), auto;
+            margin: 20px;
+            outline: #28004eb6;
+            box-shadow: 0 2px 8px #5219888f;
+            transition: all 0.4s ease;
+            position: relative;
+            background: linear-gradient(45deg, #7f34b1, #521988); /* Цвет кнопок изменен на фиолетовый (#6a2c92) */
+            color: #ddd;
+            overflow: hidden;
+            filter: brightness(0.9); /* Сделали кнопки темнее */
+        }
+
+        .button:hover {
+            background-size: 150% 150%;
+            animation: gradientShift 2s ease-in-out forwards;
+            box-shadow: 0 10px 25px #521988cb;
+            transform: translateY(-3px);
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .button:active {
+            transform: translateY(4px);
+        }
+
+        .button:hover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0px solid #8a00e671;
+            border-radius: 12px;
+            box-sizing: border-box;
+            opacity: 0.8;
+        }
+
+        .copy-btn {
+            background-color: #28a745;
+        }
+
+        .discord-btn {
+            background-color: #7289DA;
+        }
+
+        .copy-btn:hover {
+            background-color: #218838;
+        }
+
+        .discord-btn:hover {
+            background-color: #5a6abf;
+        }
+
+    </style>
+</head>
+<body class="dark-theme">
+    <div id="particles-js"></div> <!-- Контейнер для частиц -->
+    <div class="container">
+        <header>
+            XEScripts.gg
+        </header>
+
+        <div id="status" class="status">
+            🟢 Stable
+        </div>
+
+        <div class="changelog">
+            <h2>Changelog</h2>
+            <ul>
+                <li>v1.3.2 (Patch)</li>
+                <li>[!] Updated TargetStrafe</li>
+                <li>[!] Updated Spinner</li>
+                <li>[!] Updated Spinbot</li>
+                <li>[!] Updated SpeedChanger</li>
+                <li>[!] Updated Aimbot</li>
+                <li>[!] Updated Strafe</li>
+                <li>[+] Added Bind for Spinner</li>
+                <li>[+] Added Bind for TargetStrafe</li>
+            </ul>
+        </div>
+
+        <div>
+            <button class="button discord-btn" onclick="window.open('https://discord.gg/z4F6wEQkyQ', '_blank')">Discord Server</button>
+            <button class="button copy-btn" onclick="copyScript()">Copy Script</button>
+        </div>
+    </div>
+
+    <script>
+        function copyScript() {
+            const script = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/XEScripts/XEScripts-Global/refs/heads/main/script"))()';
+            navigator.clipboard.writeText(script).then(() => {
+                alert('Script copied to clipboard!');
+            }).catch((err) => {
+                alert('Failed to copy script: ' + err);
+            });
+        }
+
+        function updateStatus() {
+            fetch('https://raw.githubusercontent.com/XEScripts/XEScripts-Global/refs/heads/main/status.json')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status) {
+                        document.getElementById('status').textContent = data.status;
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Error loading status', error);
+                    document.getElementById('status').textContent = '❌ Error loading status';
+                });
+        }
+
+        // Обновлять статус каждые 15 секунд
+        setInterval(updateStatus, 5000);
+        // Сразу обновим статус при загрузке страницы
+        updateStatus();
+
+        // Инициализация tsParticles
+        tsParticles.load("particles-js", {
+            particles: {
+                number: {
+                    value: 100, // Количество частиц увеличено
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: "#ffffff" // Цвет частиц
+                },
+                shape: {
+                    type: "circle", // Форма частиц
+                },
+                opacity: {
+                    value: 0.2,
+                    random: true,
+                    animation: {
+                        enable: true,
+                        speed: 1,
+                        minimumValue: 0.1
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    animation: {
+                        enable: true,
+                        speed: 5,
+                        minimumValue: 1
+                    }
+                },
+                links: {
+                    enable: true,
+                    distance: 150,
+                    color: "#ffffff",
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: false,
+                    straight: false,
+                    outModes: {
+                        default: "out"
+                    }
+                }
+            },
+            interactivity: {
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "repulse"
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: "push"
+                    }
+                }
+            }
+        }).catch(error => {
+            console.error("Ошибка инициализации частиц:", error);
+        });
+    </script>
+</body>
+</html>
