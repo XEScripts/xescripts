@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XEScripts.gg</title>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@1.37.5/dist/tsparticles.min.js"></script> <!-- Подключение tsParticles -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@1.37.5/dist/tsparticles.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -20,19 +20,18 @@
             cursor: url('src/pointer.png'), auto;
             height: 100vh;
             margin: 0;
-            background-image: url('src/background.png'); /* Добавление фона */
-            background-size: cover; /* Размер фона */
+            background-image: url('src/background.png');
+            background-size: cover;
             background-position: center;
         }
 
-        /* Задний фон с изображением и затемнением */
         #particles-js {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Частицы и контент будут поверх фона */
+            z-index: -1;
         }
 
         .container {
@@ -95,16 +94,16 @@
 
         .status {
             font-size: 1.6rem;
-            background-color: rgba(131, 11, 201, 0.39); /* Вернули голубой фон */
+            background-color: rgba(131, 11, 201, 0.39);
             padding: 20px 40px;
             border-radius: 30px;
             margin-bottom: 40px;
-            box-shadow: 0 0 25px rgba(106, 44, 146, 0.8); /* Тень сделана фиолетовой (#6a2c92) */
+            box-shadow: 0 0 25px rgba(106, 44, 146, 0.8);
             text-align: center;
             font-weight: 600;
-            color: #e0e0e0c7; /* Цвет текста изменен на белый */
+            color: #e0e0e0c7;
             animation: pulse 2s ease-in-out infinite alternate;
-            border: 2px solid rgba(131, 11, 201, 0.39); /* Добавлена фиолетовая обводка */
+            border: 2px solid rgba(131, 11, 201, 0.39); 
         }
 
         @keyframes pulse {
@@ -117,7 +116,7 @@
         }
 
         .changelog {
-            background: rgba(0, 0, 0, 0.6); /* Сделали фон темнее */
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 20px;
             padding: 20px;
             width: 90%;
@@ -166,10 +165,10 @@
             box-shadow: 0 2px 8px #5219888f;
             transition: all 0.4s ease;
             position: relative;
-            background: linear-gradient(45deg, #7f34b1, #521988); /* Цвет кнопок изменен на фиолетовый (#6a2c92) */
+            background: linear-gradient(45deg, #7f34b1, #521988);
             color: #ddd;
             overflow: hidden;
-            filter: brightness(0.9); /* Сделали кнопки темнее */
+            filter: brightness(0.9);
         }
 
         .button:hover {
@@ -224,7 +223,7 @@
     </style>
 </head>
 <body class="dark-theme">
-    <div id="particles-js"></div> <!-- Контейнер для частиц -->
+    <div id="particles-js"></div>
     <div class="container">
         <header>
             XEScripts.gg
@@ -279,26 +278,23 @@
                 });
         }
 
-        // Обновлять статус каждые 15 секунд
         setInterval(updateStatus, 5000);
-        // Сразу обновим статус при загрузке страницы
         updateStatus();
 
-        // Инициализация tsParticles
         tsParticles.load("particles-js", {
             particles: {
                 number: {
-                    value: 100, // Количество частиц увеличено
+                    value: 100,
                     density: {
                         enable: true,
                         value_area: 800
                     }
                 },
                 color: {
-                    value: "#ffffff" // Цвет частиц
+                    value: "#ffffff"
                 },
                 shape: {
-                    type: "circle", // Форма частиц
+                    type: "circle",
                 },
                 opacity: {
                     value: 0.2,
