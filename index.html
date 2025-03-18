@@ -3,450 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XEScripts.gg</title>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@1.37.5/dist/tsparticles.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            color: #f5f5f5;
-            overflow-x: hidden;
-            position: relative;
-            cursor: url('src/pointer.png'), auto;
-            height: 100vh;
-            margin: 0;
-            background-image: url('src/background.png');
-            background-size: cover;
-            background-position: center;
-        }
-
-        #particles-js {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            z-index: 1;
-            position: relative;
-            animation: fadeIn 1s ease-out;
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        header {
-            font-size: 4rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #9b4b97;
-            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
-            animation: float 3s ease-in-out infinite alternate, colorShift 5s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(-5px);
-            }
-            100% {
-                transform: translateY(5px);
-            }
-        }
-
-        @keyframes colorShift {
-            0% {
-                color: #9b4b97;
-            }
-            25% {
-                color: #ba4b97;
-            }
-            50% {
-                color: #9333ea;
-            }
-            75% {
-                color: #6a2c92;
-            }
-            100% {
-                color: #9b4b97;
-            }
-        }
-
-        .status {
-            font-size: 1.6rem;
-            background-color: rgba(131, 11, 201, 0.39);
-            padding: 20px 40px;
-            border-radius: 30px;
-            margin-bottom: 40px;
-            box-shadow: 0 0 25px rgba(106, 44, 146, 0.8);
-            text-align: center;
-            font-weight: 600;
-            color: #e0e0e0c7;
-            animation: pulse 2s ease-in-out infinite alternate;
-            border: 2px solid rgba(131, 11, 201, 0.39); 
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(1.05);
-            }
-        }
-
-        .changelog {
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 20px;
-            padding: 20px;
-            width: 90%;
-            max-width: 800px;
-            margin-bottom: 50px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-            opacity: 0;
-            animation: fadeIn 2s forwards 0.5s;
-        }
-
-        .changelog h2 {
-            margin-bottom: 15px;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-        }
-
-        .changelog ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .changelog ul li {
-            margin: 10px 0;
-            font-size: 1.3rem;
-            color: #ddd;
-            transition: color 0.3s ease;
-        }
-
-        .changelog ul li:hover {
-            color: rgb(162, 0, 255);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-        }
-
-        .button {
-            padding: 18px 40px;
-            font-size: 1.3rem;
-            border: none;
-            border-radius: 12px;
-            cursor: url('src/pointer.png'), auto;
-            margin: 20px;
-            outline: #28004eb6;
-            box-shadow: 0 2px 8px #5219888f;
-            transition: all 0.4s ease;
-            position: relative;
-            background: linear-gradient(45deg, #7f34b1, #521988);
-            color: #ddd;
-            overflow: hidden;
-            filter: brightness(0.9);
-        }
-
-        .button:hover {
-            background-size: 150% 150%;
-            animation: gradientShift 2s ease-in-out forwards;
-            box-shadow: 0 10px 25px #521988cb;
-            transform: translateY(-3px);
-        }
-
-        @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-            100% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .button:active {
-            transform: translateY(4px);
-        }
-
-        .button:hover::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0px solid #8a00e671;
-            border-radius: 12px;
-            box-sizing: border-box;
-            opacity: 0.8;
-        }
-
-        .copy-btn {
-            background-color: #28a745;
-        }
-
-        .discord-btn {
-            background-color: #7289DA;
-        }
-
-        .copy-btn:hover {
-            background-color: #218838;
-        }
-
-        .discord-btn:hover {
-            background-color: #5a6abf;
-        }
-
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: -300px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: right 0.5s ease;
-            opacity: 0.9;
-            border: 2px solid rgba(131, 11, 201, 0.39);
-        }
-
-        .notification.visible {
-            right: 20px;
-        }
-
-        .notification .mute-btn {
-            background: transparent;
-            border: none;
-            font-size: 1.5rem;
-            color: white;
-            cursor: pointer;
-        }
-
-        .notification .mute-btn:focus {
-            outline: none;
-        }
-
-    </style>
+    <title>XEScripts.gg - Лучший скрипт для Roblox</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="dark-theme">
-    <div id="particles-js"></div>
+<body>
     <div class="container">
         <header>
-            XEScripts.gg
+            <div class="logo-container">
+                <img src="icons/logo.jpg" alt="XEScripts Logo" class="logo-img">
+                <div class="logo-text">
+                    <h1>XEScripts.gg</h1>
+                    <span class="version">v1.4.1P</span>
+                </div>
+            </div>
+            <div class="status">
+                <span class="status-indicator yellow"></span>
+                Статус: Ожидание обновления
+            </div>
         </header>
 
-        <div id="status" class="status">
-            🟢 Stable
-        </div>
-
-        <div class="changelog">
-            <h2>Changelog</h2>
+        <nav class="main-nav">
             <ul>
-                <li>v1.4.0A</li>
-                <li>[!] Updated NameTagsNew</li>
-                <li>[!] Updated ClickGui (Cheat UI)</li>
-                <li>[!] Updated NameTags</li>
-                <li>[!] Updated OldWatermark</li>
-                <li>[!] Updated NursultanOld Watermark</li>
-                <li>[!] Updated TargetHud1</li>
-                <li>[!] Updated TargetHud2</li>
-                <li>[!] Updated Tracers</li>
-                <li>[!] Updated Aimbot</li>
-                <li>[!] Updated OneTarget Mode (Aimbot)</li>
-                <li>[!] Updated BHop</li>
-                <li>[!] Updated Strafe</li>
-                <li>[!] Renamed Strafe -> BHop</li>
-                <li>[/] Optimized Tracers</li>
-                <li>[/] Optimized NameTags</li>
-                <li>[/] Optimized NameTagsNew</li>
-                <li>[+] Added Strafe</li>
-                <li>[+] Added Antikick (Local)</li>
+                <li><a href="#script">Скрипт</a></li>
+                <li><a href="#features">Функции</a></li>
+                <li><a href="#changelog">Чейнджлог</a></li>
+                <li><a href="#key">Ключ</a></li>
+                <li><a href="#contact">Контакты</a></li>
             </ul>
-        </div>
+        </nav>
 
-        <div>
-            <button class="button discord-btn" onclick="window.open('https://discord.gg/z4F6wEQkyQ', '_blank')">Discord Server</button>
-            <button class="button copy-btn" onclick="copyScript()">Copy Script</button>
-        </div>
+        <main>
+            <section id="script" class="hero">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h2>XEScripts Alpha</h2>
+                        <p>Мощный и современный чит для Roblox</p>
+                        <div class="script-info">
+                            <div class="info-item">
+                                <span class="label">Версия:</span>
+                                <span class="value">1.4.1P</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Совместимость:</span>
+                                <span class="value">Все игры</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Последнее обновление:</span>
+                                <span class="value">18.03.2025</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="icons/menu.png" alt="XEScripts Menu" class="menu-img">
+                    </div>
+                </div>
+                
+                <div class="script-box">
+                    <h3>Скрипт</h3>
+                    <div class="script-code">
+                        <code id="scriptCode">loadstring(game:HttpGet("https://raw.githubusercontent.com/XEScripts/XEScripts-Global/refs/heads/main/script"))()</code>
+                        <button class="copy-btn" onclick="copyScript()">
+                            <i class="fas fa-copy"></i> Копировать
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features">
+                <h3>Функции</h3>
+                <div class="features-content">
+                    <div class="feature-item">
+                        <h4>Aimbot</h4>
+                        <p>Автонаведение на игроков</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>ESP</h4>
+                        <p>Просмотр игроков через стены</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>Wallhack</h4>
+                        <p>Просмотр игроков сквозь стены</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>And More!</h4>
+                        <p>Все о чем вы только сможете мечтать</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="changelog">
+                <h3>Чейнджлог</h3>
+            </section>
+
+            <section id="key" class="key-section">
+                <h3>Ключ</h3>
+                <div class="key-info">
+                    <div class="key-container">
+                        <span id="keyValue">zdSF8NaHVVzv15RJ8ItZCRmWr7IyHPU2</span>
+                        <button class="copy-btn" onclick="copyKey()">
+                            <i class="fas fa-copy"></i> Копировать
+                        </button>
+                    </div>
+                    <div class="key-details">
+                        <div class="key-item">
+                            <span class="label">Создан:</span>
+                            <span class="value">01.03.25</span>
+                        </div>
+                        <div class="key-item">
+                            <span class="label">Действует до:</span>
+                            <span class="value">01.05.25</span>
+                        </div>
+                        <div class="key-item">
+                            <span class="label">Статус:</span>
+                            <span class="value"><span class="status-indicator green"></span> Активен</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact">
+                <h3>Присоединяйтесь к нам</h3>
+                <div class="social-links">
+                    <a href="https://discord.gg/qcndWfeX4X" class="social-btn discord" target="_blank">
+                        <img src="icons/discord.png" alt="Discord" class="social-icon">
+                        <span>Discord</span>
+                    </a>
+                    <a href="https://t.me/xescripts" class="social-btn telegram" target="_blank">
+                        <img src="icons/tg.png" alt="Telegram" class="social-icon">
+                        <span>Telegram</span>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="icons/logo.jpg" alt="XEScripts Logo" class="footer-logo-img">
+                    <span>XEScripts.gg</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#script">Скрипт</a>
+                    <a href="#features">Функции</a>
+                    <a href="#changelog">Чейнджлог</a>
+                    <a href="#key">Ключ</a>
+                    <a href="#contact">Контакты</a>
+                </div>
+                <p>&copy; 2024 XEScripts.gg - Все права защищены</p>
+            </div>
+        </footer>
     </div>
 
-    <div id="notification" class="notification">
-        <span id="notification-text">Text copied to clipboard!</span>
-        <button class="mute-btn" onclick="toggleMute()">🔊</button>
+    <div class="rain">
     </div>
 
+    <script src="script.js"></script>
     <script>
-        let isMuted = false;
-
-        function copyScript() {
-            const script = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/XEScripts/XEScripts-Global/refs/heads/main/script"))()';
-            navigator.clipboard.writeText(script).then(() => {
-                showNotification('Script copied to clipboard!');
-            }).catch((err) => {
-                showNotification('Failed to copy script: ' + err);
-            });
+        const rainContainer = document.querySelector('.rain');
+        for (let i = 0; i < 100; i++) {
+            const drop = document.createElement('div');
+            drop.className = 'rain-drop';
+            drop.style.left = Math.random() * 100 + 'vw';
+            drop.style.animationDuration = Math.random() * 2 + 2 + 's';
+            rainContainer.appendChild(drop);
         }
-
-        function updateStatus() {
-            fetch('https://raw.githubusercontent.com/XEScripts/XEScripts-Global/refs/heads/main/status.json')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status) {
-                        document.getElementById('status').textContent = data.status;
-                    }
-                })
-                .catch(error => {
-                    console.error('❌ Error loading status', error);
-                    document.getElementById('status').textContent = '❌ Error loading status';
-                });
-        }
-
-        setInterval(updateStatus, 5000);
-        updateStatus();
-
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            const notificationText = document.getElementById('notification-text');
-
-            if (notification.classList.contains('visible')) {
-                notification.classList.remove('visible');
-                setTimeout(() => {
-                    notificationText.textContent = message;
-                    notification.classList.add('visible');
-                }, 500);
-            } else {
-                notificationText.textContent = message;
-                notification.classList.add('visible');
-            }
-
-            if (!isMuted) {
-                const audio = new Audio('src/sfx.wav');
-                audio.play();
-            }
-
-            setTimeout(() => {
-                notification.classList.remove('visible');
-            }, 2500);
-        }
-
-        function toggleMute() {
-            isMuted = !isMuted;
-            const muteButton = document.querySelector('.mute-btn');
-            muteButton.textContent = isMuted ? '' : '';
-        }
-
-        tsParticles.load("particles-js", {
-            particles: {
-                number: {
-                    value: 150,
-                    density: {
-                        enable: true,
-                        value_area: 900
-                    }
-                },
-                color: {
-                    value: ["#ffffff", "#9b4b97", "#9333ea"]
-                },
-                shape: {
-                    type: "circle",
-                },
-                opacity: {
-                    value: 0.5,
-                    random: true,
-                    animation: {
-                        enable: true,
-                        speed: 1.5,
-                        minimumValue: 0.1,
-                        sync: false
-                    }
-                },
-                size: {
-                    value: 3.5,
-                    random: true,
-                    animation: {
-                        enable: true,
-                        speed: 5,
-                        minimumValue: 0.5,
-                        sync: false
-                    }
-                },
-                links: {
-                    enable: true,
-                    distance: 120,
-                    color: "#ffffff",
-                    opacity: 0.5,
-                    width: 1.2
-                },
-                move: {
-                    enable: true,
-                    speed: 2.5,
-                    direction: "none",
-                    random: false,
-                    straight: false,
-                    outModes: {
-                        default: "out"
-                    },
-                    attract: {
-                        enable: true,
-                        rotateX: 600,
-                        rotateY: 1200
-                    }
-                }
-            },
-            interactivity: {
-                events: {
-                    onHover: {
-                        enable: true,
-                        mode: "bubble"
-                    },
-                    onClick: {
-                        enable: true,
-                        mode: "remove"
-                    }
-                },
-                modes: {
-                    bubble: {
-                        distance: 200,
-                        size: 8,
-                        duration: 2,
-                        opacity: 0.8
-                    },
-                    remove: {
-                        quantity: 3
-                    }
-                }
-            }
-        }).catch(error => {
-            console.error("Ошибка инициализации частиц:", error);
-        });
     </script>
 </body>
-</html>
+</html> 

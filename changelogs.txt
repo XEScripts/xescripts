@@ -1,0 +1,8 @@
+1.4.1P 
+[*] Fixed Aimbot
+[*] Fixed OneTarget (Aimbot)
+[!] Updated Bypass for Fly
+[!] Updated Bypass for SpeedChanger - Bypass1
+[!] Updated Bypass for SpeedChanger - Bypass2
+[/] Optimization Updated (more stability)
+[+] Added console command - /setflyspeed or /sfs
