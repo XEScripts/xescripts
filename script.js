@@ -10,6 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
     addParallaxEffect();
     
     addButtonAnimation();
+    
+    addScrollReveal();
+    
+    initBackToTop();
+    
+    initModalEvents();
+    
+    updateCountdown();
 });
 
 function copyScript() {
@@ -60,36 +68,9 @@ function showCopyNotification(message) {
     notification.textContent = message;
     notification.style.display = 'block';
     
-    if (!document.getElementById('notificationStyle')) {
-        const style = document.createElement('style');
-        style.id = 'notificationStyle';
-        style.textContent = `
-            .copy-notification {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background-color: #333;
-                color: white;
-                padding: 10px 20px;
-                border-radius: 4px;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-                display: none;
-                z-index: 1000;
-                animation: fadeIn 0.3s, fadeOut 0.3s 1.7s;
-            }
-            
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-            
-            @keyframes fadeOut {
-                from { opacity: 1; }
-                to { opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-    }
+    const audio = new Audio('data:audio/mp3;base64,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');
+    audio.volume = 0.5;
+    audio.play();
     
     setTimeout(() => {
         notification.style.display = 'none';
@@ -100,7 +81,7 @@ function loadChangelogs() {
     const changelogs = [
         {
             version: "1.4.1P",
-            date: "18.03.2025",
+            date: "15.03.2025",
             changes: [
                 { type: "added", text: "Added console command - /setflyspeed or /sfs" },
                 { type: "updated", text: "Updated Bypass for Fly" },
@@ -110,6 +91,41 @@ function loadChangelogs() {
                 { type: "fixed", text: "Fixed OneTarget (Aimbot)" },
             ]
         },
+        {
+            version: "1.4.2A",
+            date: "18.03.2025",
+            changes: [
+                { type: "added", text: "Added console command - /setflyspeed or /sfs" },
+                { type: "updated", text: "Updated Bypass for Fly" },
+                { type: "updated", text: "Updated Bypass for SpeedChanger - Bypass1" },
+                { type: "updated", text: "Updated Bypass for SpeedChanger - Bypass2" },
+                { type: "fixed", text: "Fixed Aimbot" },
+                { type: "fixed", text: "Fixed OneTarget (Aimbot)" },
+                { type: "fixed", text: "Fixed ESP" },
+                { type: "fixed", text: "Fixed Wallhack" },
+                { type: "fixed", text: "Fixed NoLag" },
+                { type: "fixed", text: "Fixed StreamerMode" },
+                { type: "fixed", text: "Fixed ThirdPerson" },
+                { type: "fixed", text: "Fixed Console Injection" },
+                { type: "fixed", text: "Fixed Optimization" },
+                { type: "fixed", text: "Fixed Bugs" },
+                { type: "fixed", text: "Fixed Key" },
+                { type: "fixed", text: "Fixed Script" },
+                { type: "fixed", text: "Fixed Interface" },
+                { type: "fixed", text: "Fixed Menu" },
+                { type: "fixed", text: "Fixed UI" },
+                { type: "fixed", text: "Fixed UI" },
+                { type: "fixed", text: "Fixed UI" },
+                { type: "fixed", text: "Fixed UI" },
+                { type: "fixed", text: "Fixed UI" },
+                { type: "fixed", text: "Fixed UI" },
+                { type: "fixed", text: "Fixed UI" },
+                { type: "fixed", text: "Fixed UI" },
+                { type: "fixed", text: "Fixed UI" },
+                { type: "fixed", text: "Fixed UI" },
+                { type: "fixed", text: "Fixed UI" },
+            ]
+        }
     ];
 
     const changelogSection = document.getElementById('changelog');
@@ -218,7 +234,7 @@ function animateOnScroll() {
 
 function activateMenuOnScroll() {
     const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.main-nav a');
+    const navLinks = document.querySelectorAll('.nav-link');
     
     window.addEventListener('scroll', () => {
         let current = '';
@@ -260,13 +276,8 @@ function addSmoothScrolling() {
 }
 
 function addParallaxEffect() {
-    window.addEventListener('mousemove', function(e) {
-        const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
-        
-        document.body.style.backgroundPositionX = `${x * 20}px`;
-        document.body.style.backgroundPositionY = `${y * 20}px`;
-    });
+    // Функция пустая, чтобы отключить эффект параллакса
+    return;
 }
 
 function addButtonAnimation() {
@@ -280,6 +291,20 @@ function addButtonAnimation() {
         button.addEventListener('mouseleave', function() {
             this.classList.remove('pulse');
         });
+    });
+}
+
+function addScrollReveal() {
+    const sr = ScrollReveal({
+        origin: 'bottom',
+        distance: '20px',
+        duration: 1000,
+        delay: 200,
+        reset: true
+    });
+
+    sr.reveal('.hero-content, .features-content, .changelog-container, .key-info, .social-links', {
+        interval: 200
     });
 }
 
@@ -353,4 +378,120 @@ function initLanguageSwitcher() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', initLanguageSwitcher); 
+document.addEventListener('DOMContentLoaded', initLanguageSwitcher);
+
+function initBackToTop() {
+    const backToTopButton = document.getElementById('backToTop');
+    
+    if (!backToTopButton) {
+        console.error('Не найдена кнопка backToTop');
+        return;
+    }
+    
+    const scrollThreshold = 300;
+    
+    if (window.pageYOffset > scrollThreshold) {
+        backToTopButton.classList.add('show');
+    }
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > scrollThreshold) {
+            if (!backToTopButton.classList.contains('show')) {
+                backToTopButton.classList.add('show');
+            }
+        } else {
+            if (backToTopButton.classList.contains('show')) {
+                backToTopButton.classList.remove('show');
+            }
+        }
+    });
+    
+    backToTopButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+function initModalEvents() {
+    const modal = document.getElementById('demoModal');
+    const showModalBtn = document.getElementById('showDemoBtn');
+    const closeModal = document.querySelector('.close-modal');
+    
+    if (!modal || !showModalBtn || !closeModal) {
+        console.error('Не найдены элементы модального окна');
+        return;
+    }
+    
+    showModalBtn.addEventListener('click', () => {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        setTimeout(() => {
+            modal.classList.add('active');
+        }, 10);
+    });
+    
+    closeModal.addEventListener('click', () => {
+        closeModalWindow();
+    });
+    
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModalWindow();
+        }
+    });
+    
+    function closeModalWindow() {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+}
+
+function updateCountdown() {
+    const countdownEl = document.getElementById('countdown');
+    const validUntil = new Date('2025-05-01');
+    
+    function calculate() {
+        const now = new Date();
+        const diff = validUntil - now;
+        
+        if (diff <= 0) {
+            countdownEl.innerHTML = 'Истек';
+            return;
+        }
+        
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        countdownEl.innerHTML = `${days}д ${hours}ч ${minutes}м ${seconds}с`;
+    }
+    
+    calculate();
+    setInterval(calculate, 1000);
+}
+
+function addTypingEffect() {
+    const codeElement = document.getElementById('scriptCode');
+    const originalCode = codeElement.innerText;
+    
+    codeElement.innerText = '';
+    
+    let i = 0;
+    function typeCode() {
+        if (i < originalCode.length) {
+            codeElement.innerText += originalCode.charAt(i);
+            i++;
+            setTimeout(typeCode, 50);
+        }
+    }
+    
+    setTimeout(typeCode, 1000);
+} 

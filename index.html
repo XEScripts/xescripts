@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XEScripts.gg - Лучший скрипт для Roblox</title>
+    <title>XEScripts.gg - Лучший скрипт</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -15,7 +17,7 @@
                 <img src="icons/logo.jpg" alt="XEScripts Logo" class="logo-img">
                 <div class="logo-text">
                     <h1>XEScripts.gg</h1>
-                    <span class="version">v1.4.1P</span>
+                    <span class="version">v1.4.0A</span>
                 </div>
             </div>
             <div class="status">
@@ -26,16 +28,16 @@
 
         <nav class="main-nav">
             <ul>
-                <li><a href="#script">Скрипт</a></li>
-                <li><a href="#features">Функции</a></li>
-                <li><a href="#changelog">Чейнджлог</a></li>
-                <li><a href="#key">Ключ</a></li>
-                <li><a href="#contact">Контакты</a></li>
+                <li><a href="#script" class="nav-link active">Скрипт</a></li>
+                <li><a href="#features" class="nav-link">Функции</a></li>
+                <li><a href="#changelog" class="nav-link">Чейнджлог</a></li>
+                <li><a href="#key" class="nav-link">Ключ</a></li>
+                <li><a href="#contact" class="nav-link">Контакты</a></li>
             </ul>
         </nav>
 
         <main>
-            <section id="script" class="hero">
+            <section id="script" class="hero animate__animated animate__fadeIn">
                 <div class="hero-content">
                     <div class="hero-text">
                         <h2>XEScripts Alpha</h2>
@@ -43,7 +45,7 @@
                         <div class="script-info">
                             <div class="info-item">
                                 <span class="label">Версия:</span>
-                                <span class="value">1.4.1P</span>
+                                <span class="value">1.4.0A</span>
                             </div>
                             <div class="info-item">
                                 <span class="label">Совместимость:</span>
@@ -51,12 +53,13 @@
                             </div>
                             <div class="info-item">
                                 <span class="label">Последнее обновление:</span>
-                                <span class="value">18.03.2025</span>
+                                <span class="value">11.03.2025</span>
                             </div>
                         </div>
+                        <button class="glow-btn" id="showDemoBtn">Смотреть демо</button>
                     </div>
                     <div class="hero-image">
-                        <img src="icons/menu.png" alt="XEScripts Menu" class="menu-img">
+                        <img src="icons/menu.png" alt="XEScripts Menu" class="menu-img parallax-layer">
                     </div>
                 </div>
                 
@@ -71,34 +74,47 @@
                 </div>
             </section>
 
-            <section id="features">
-                <h3>Функции</h3>
+            <section id="features" class="animate__animated animate__fadeIn">
+                <div class="section-header">
+                    <h3>Функции</h3>
+                    <div class="section-line"></div>
+                </div>
                 <div class="features-content">
                     <div class="feature-item">
+                        <i class="fas fa-crosshairs feature-icon parallax-layer"></i>
                         <h4>Aimbot</h4>
                         <p>Автонаведение на игроков</p>
                     </div>
                     <div class="feature-item">
+                        <i class="fas fa-eye feature-icon parallax-layer"></i>
                         <h4>ESP</h4>
                         <p>Просмотр игроков через стены</p>
                     </div>
                     <div class="feature-item">
+                        <i class="fas fa-layer-group feature-icon parallax-layer"></i>
                         <h4>Wallhack</h4>
                         <p>Просмотр игроков сквозь стены</p>
                     </div>
                     <div class="feature-item">
+                        <i class="fas fa-plus-circle feature-icon parallax-layer"></i>
                         <h4>And More!</h4>
                         <p>Все о чем вы только сможете мечтать</p>
                     </div>
                 </div>
             </section>
 
-            <section id="changelog">
-                <h3>Чейнджлог</h3>
+            <section id="changelog" class="animate__animated animate__fadeIn">
+                <div class="section-header">
+                    <h3>Чейнджлог</h3>
+                    <div class="section-line"></div>
+                </div>
             </section>
 
-            <section id="key" class="key-section">
-                <h3>Ключ</h3>
+            <section id="key" class="key-section animate__animated animate__fadeIn">
+                <div class="section-header">
+                    <h3>Ключ</h3>
+                    <div class="section-line"></div>
+                </div>
                 <div class="key-info">
                     <div class="key-container">
                         <span id="keyValue">zdSF8NaHVVzv15RJ8ItZCRmWr7IyHPU2</span>
@@ -119,12 +135,19 @@
                             <span class="label">Статус:</span>
                             <span class="value"><span class="status-indicator green"></span> Активен</span>
                         </div>
+                        <div class="key-item">
+                            <span class="label">Осталось:</span>
+                            <span class="value" id="countdown">Загрузка...</span>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section id="contact">
-                <h3>Присоединяйтесь к нам</h3>
+            <section id="contact" class="animate__animated animate__fadeIn">
+                <div class="section-header">
+                    <h3>Присоединяйтесь к нам</h3>
+                    <div class="section-line"></div>
+                </div>
                 <div class="social-links">
                     <a href="https://discord.gg/qcndWfeX4X" class="social-btn discord" target="_blank">
                         <img src="icons/discord.png" alt="Discord" class="social-icon">
@@ -151,12 +174,39 @@
                     <a href="#key">Ключ</a>
                     <a href="#contact">Контакты</a>
                 </div>
-                <p>&copy; 2025 XEScripts.gg - Все права защищены</p>
+                <p>&copy; 2024 XEScripts.gg - Все права защищены</p>
             </div>
         </footer>
     </div>
 
-    <div class="rain">
+    <div class="rain"></div>
+    
+    <button id="backToTop" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <div id="demoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Демонстрация XEScripts</h2>
+            <div class="demo-content">
+                <div class="demo-video">
+                    <img src="icons/menu.png" alt="XEScripts Demo" class="demo-img">
+                </div>
+                <div class="demo-features">
+                    <h3>Основные возможности:</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Aimbot с настраиваемыми параметрами</li>
+                        <li><i class="fas fa-check"></i> ESP с различными настройками</li>
+                        <li><i class="fas fa-check"></i> Wallhack с несколькими режимами</li>
+                        <li><i class="fas fa-check"></i> SpeedChanger для изменения скорости</li>
+                        <li><i class="fas fa-check"></i> Fly для полета</li>
+                        <li><i class="fas fa-check"></i> NoClip для прохождения сквозь объекты</li>
+                        <li><i class="fas fa-check"></i> Множество других функций</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
