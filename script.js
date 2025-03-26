@@ -80,19 +80,22 @@ function showCopyNotification(message) {
 function loadChangelogs() {
     const changelogs = [
         {
-            version: "1.4.1P",
-            date: "15.03.2025",
+            version: "1.4.2A",
+            date: "26.03.2025",
             changes: [
-                { type: "added", text: "Added console command - /setflyspeed or /sfs" },
-                { type: "updated", text: "Updated Bypass for Fly" },
-                { type: "updated", text: "Updated Bypass for SpeedChanger - Bypass1" },
-                { type: "updated", text: "Updated Bypass for SpeedChanger - Bypass2" },
-                { type: "fixed", text: "Fixed Aimbot" },
-                { type: "fixed", text: "Fixed OneTarget (Aimbot)" },
+                { type: "updated", text: "Updated OneTarget (Aimbot)" },
+                { type: "updated", text: "Updated WallCheck (Aimbot)" },
+                { type: "updated", text: "Updated FovCheck (Aimbot)" },
+                { type: "updated", text: "Updated Fly" },
+                { type: "updated", text: "Updated Aimbot" },
+                { type: "updated", text: "Updated /setflyspeed, /sfs" },
+                { type: "updated", text: "Updated Bypass for SpeedChanger Bypass1" },
+                { type: "updated", text: "Updated Bypass for SpeedChanger Bypass2" },
+                { type: "fixed", text: "Fixed HitSFX" },
             ]
         },
         {
-            version: "1.4.2A",
+            version: "1.4.1P",
             date: "18.03.2025",
             changes: [
                 { type: "added", text: "Added console command - /setflyspeed or /sfs" },
@@ -100,30 +103,7 @@ function loadChangelogs() {
                 { type: "updated", text: "Updated Bypass for SpeedChanger - Bypass1" },
                 { type: "updated", text: "Updated Bypass for SpeedChanger - Bypass2" },
                 { type: "fixed", text: "Fixed Aimbot" },
-                { type: "fixed", text: "Fixed OneTarget (Aimbot)" },
-                { type: "fixed", text: "Fixed ESP" },
-                { type: "fixed", text: "Fixed Wallhack" },
-                { type: "fixed", text: "Fixed NoLag" },
-                { type: "fixed", text: "Fixed StreamerMode" },
-                { type: "fixed", text: "Fixed ThirdPerson" },
-                { type: "fixed", text: "Fixed Console Injection" },
                 { type: "fixed", text: "Fixed Optimization" },
-                { type: "fixed", text: "Fixed Bugs" },
-                { type: "fixed", text: "Fixed Key" },
-                { type: "fixed", text: "Fixed Script" },
-                { type: "fixed", text: "Fixed Interface" },
-                { type: "fixed", text: "Fixed Menu" },
-                { type: "fixed", text: "Fixed UI" },
-                { type: "fixed", text: "Fixed UI" },
-                { type: "fixed", text: "Fixed UI" },
-                { type: "fixed", text: "Fixed UI" },
-                { type: "fixed", text: "Fixed UI" },
-                { type: "fixed", text: "Fixed UI" },
-                { type: "fixed", text: "Fixed UI" },
-                { type: "fixed", text: "Fixed UI" },
-                { type: "fixed", text: "Fixed UI" },
-                { type: "fixed", text: "Fixed UI" },
-                { type: "fixed", text: "Fixed UI" },
             ]
         }
     ];
