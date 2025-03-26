@@ -94,18 +94,6 @@ function loadChangelogs() {
                 { type: "fixed", text: "Fixed HitSFX" },
             ]
         },
-        {
-            version: "1.4.1P",
-            date: "18.03.2025",
-            changes: [
-                { type: "added", text: "Added console command - /setflyspeed or /sfs" },
-                { type: "updated", text: "Updated Bypass for Fly" },
-                { type: "updated", text: "Updated Bypass for SpeedChanger - Bypass1" },
-                { type: "updated", text: "Updated Bypass for SpeedChanger - Bypass2" },
-                { type: "fixed", text: "Fixed Aimbot" },
-                { type: "fixed", text: "Fixed Optimization" },
-            ]
-        }
     ];
 
     const changelogSection = document.getElementById('changelog');
